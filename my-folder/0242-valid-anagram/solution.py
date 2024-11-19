@@ -1,20 +1,14 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        sD = {}
-        sT = {}
+        if len(s) != len(t):
+            return False
 
-        for char in s:
-            if char in sD:
-                sD[char] += 1
-            else:
-                sD[char] = 1
-        
-        for char in t:
-            if char in sT:
-                sT[char] += 1
-            else:
-                sT[char] = 1
+        # for char in s:
+        #     try:
+        #         t.remove(char)
+        #     except:
+        #         return False
 
-        if sD == sT:
+        if sorted(s) == sorted(t):
             return True
         return False
