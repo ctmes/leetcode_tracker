@@ -1,21 +1,13 @@
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:   
-        if prices.index(min(prices)) < prices.index(max(prices)):
-            return max(prices) - min(prices)
-
-        highest_total = max(prices)
-        profit = 0
-
-        # if 0 in prices:
-        #     profit = max(prices[prices.index(0):])
+    def maxProfit(self, prices: List[int]) -> int:
+        min_price = float('inf')  # Initialize the minimum price as infinity
+        max_profit = 0  # Initialize the maximum profit to 0
 
         for price in prices:
-            if highest_total - price > profit:
-                highest = max(prices[prices.index(price):])
-                if highest == 0:
-                    break
-                if highest - price > profit:
-                        profit = highest - price
-        return profit
+            if price < min_price:
+                min_price = price  # Update the minimum price
+            elif price - min_price > max_profit:
+                max_profit = price - min_price  # Update the maximum profit
 
+        return max_profit
 
