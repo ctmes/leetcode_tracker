@@ -3,11 +3,10 @@ class Solution:
         if not nums:
             return False
         
-        # Use a dictionary to store the complement and its index
         seen = {}
         for i, num in enumerate(nums):
+            print("Printed!", i, num)
             complement = target - num
             if complement in seen:
                 return [seen[complement], i]
             seen[num] = i
-
