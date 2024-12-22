@@ -2,27 +2,21 @@ class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
 
-        if len(s) < 2:
-            return False
-
-        for c in s:
-            if c in "([{":
-                stack.append(c)
-            
-            elif c == ")":
-                if not stack or stack.pop() != "(":
-                    return False
-
-            elif c == "}":
-                if not stack or stack.pop() != "{":
-                    return False
-
-            elif c == "]":
-                if not stack or stack.pop() != "[":
-                    return False
-
+        for char in s:
+            if char in "({[":
+                stack.append(char)
+            elif not stack and char not in "({[":
+                return False
+            elif char == ")" and stack[-1] == "(":
+                stack.pop()
+            elif char == "}" and stack[-1] == "{":
+                stack.pop()
+            elif char == "]" and stack[-1] == "[":
+                stack.pop()
+            else:
+                return False
+     
         if stack:
             return False
-
-        return True
-        
+        else:
+            return True
