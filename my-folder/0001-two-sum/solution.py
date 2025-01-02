@@ -1,12 +1,14 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        if not nums:
-            return False
-        
-        seen = {}
-        for i, num in enumerate(nums):
-            print("Printed!", i, num)
-            complement = target - num
-            if complement in seen:
-                return [seen[complement], i]
-            seen[num] = i
+        h = {}
+        for i in range(len(nums)):
+            h[nums[i]] = i
+
+        for i in range(len(nums)):
+            y = target - nums[i]
+
+            if y in h and h[y] != i:
+                return [i, h[y]]
+
+# Time Complexity: O(n)
+# Space Complexity: O(n)
