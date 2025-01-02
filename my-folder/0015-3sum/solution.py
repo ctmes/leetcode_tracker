@@ -1,34 +1,35 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        nums.sort()  # Sort the array
-        result = set()  # Use a set to store unique triplets
+        nums.sort()
+        n = len(nums)
+        out = []
 
-        for leftmost in range(len(nums) - 2):  # Fix the first number
-            # Skip duplicates for the `leftmost` pointer
-            if leftmost > 0 and nums[leftmost] == nums[leftmost - 1]:
+        for i in range(n):
+            if nums[i] > 0:
+                break
+            
+            elif i > 0 and nums[i] == nums[i-1]:
                 continue
 
-            left, right = leftmost + 1, len(nums) - 1  # Initialize pointers
+            l, r = i + 1, n - 1
 
-            while left < right:
-                current_sum = nums[leftmost] + nums[left] + nums[right]
+            while l < r:
+                summ = nums[i] + nums[l] + nums[r]
+                if summ == 0:
+                    out.append([nums[i], nums[l], nums[r]])
+                    l, r = l + 1, r - 1
 
-                if current_sum == 0:
-                    result.add((nums[leftmost], nums[left], nums[right]))  # Add triplet as a tuple
-
-                    # Move pointers and skip duplicates
-                    while left < right and nums[left] == nums[left + 1]:
-                        left += 1
-                    while left < right and nums[right] == nums[right - 1]:
-                        right -= 1
-
-                    left += 1
-                    right -= 1
-
-                elif current_sum < 0:
-                    left += 1  # Increase the sum by moving `left` rightward
+                    while l < r and nums[l] == nums[l-1]:
+                        l += 1
+                    
+                    while l < r and nums[r] == nums[r+1]:
+                        r -= 1
+                
+                elif summ < 0:
+                    l += 1
+                
                 else:
-                    right -= 1  # Decrease the sum by moving `right` leftward
+                    r -= 1
 
-        return [list(triplet) for triplet in result]  # Convert set of tuples back to a list of lists
-
+        return out
+                    
