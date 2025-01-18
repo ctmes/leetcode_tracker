@@ -1,19 +1,31 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        if len(matrix) == 1:
-            return target in matrix[0]
+        for row in matrix:
+            low, high = row[0], row[-1]
 
-        if len(matrix) == 2:
-            return target in matrix[0] or target in matrix[1]
-        
-        midpoint = int(len(matrix)/2)
-        midpointFirstIndex = matrix[midpoint][0]
-        
-        if target == midpointFirstIndex:
-            return True
+            if target < low or target > high:
+                continue
 
-        if target < midpointFirstIndex:
-            return self.searchMatrix(matrix[:midpoint], target)
+            if target == low or target == high:
+                print("Equals")
+                return True
+            
+            l, r = 0, len(row) - 1
+            while l <= r:
+                m = (l+r) // 2
+
+                if target == row[m]:
+                    print("m found")
+                    return True
+                
+                if target < row[m]:
+                    r -= 1
+                
+                else:
+                    l += 1
+
+        return False
+
         
-        elif target > midpointFirstIndex:
-            return self.searchMatrix(matrix[midpoint:], target)
+
+        
